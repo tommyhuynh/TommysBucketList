@@ -2,3 +2,18 @@
 <p>
   The time is now: <%= Time.now %>
 </p>
+
+<p>Events</p>
+<% @droplets.each do |droplet| %>
+    <p>Name: <%= droplet.adventure %></p>
+<% end %>
+
+<%= form_tag("/droplets", method: "post") do %>
+  <%= label_tag(:adventure, "Adventure:") %>
+  <%= text_field_tag(:adventure) %>
+  <%= label_tag(:image_url, "Image URL:") %>
+  <%= text_field_tag(:image_url) %>
+  <%= label_tag(:description, "Description:") %>
+  <%= text_field_tag(:description) %>
+  <%= submit_tag("Create") %>
+<% end %>
