@@ -1,19 +1,51 @@
-<h2>Hello World</h2>
-<p>
-  The time is now: <%= Time.now %>
-</p>
 
-<p>Events</p>
-<% @droplets.each do |droplet| %>
-    <p>Name: <%= droplet.adventure %></p>
-<% end %>
+<div id="main-container" class="container">
+  <ul class="nav nav-tabs">
+    <li role="presentation" class="active"><%= link_to "Tommy's Bucket List", root_path %></li>
+    <!-- <li role="presentation"><%= link_to "Message", root_path %></li> -->
+  </ul>
+  <div class="jumbotron" id="mainpage-jumbotron">
+    <h1 class="jumbotronText">When was the last time you did something for the first time?</h1>
+    <!-- <p><a class="btn btn-primary btn-lg" href="#" role="button"></a></p> -->
+  </div>
 
-<%= form_tag("/droplets", method: "post") do %>
-  <%= label_tag(:adventure, "Adventure:") %>
-  <%= text_field_tag(:adventure) %>
-  <%= label_tag(:image_url, "Image URL:") %>
-  <%= text_field_tag(:image_url) %>
-  <%= label_tag(:description, "Description:") %>
-  <%= text_field_tag(:description) %>
-  <%= submit_tag("Create") %>
-<% end %>
+
+  <h1>So Tommy, what's next?</h1>
+
+  <% @droplets.each do |droplet| %>
+
+        <div class="jumbotron" id="dropletJumbo" style="background-image: url('<%= droplet.image_url %>')">
+          <div id="main-container" class="container">
+            <div class="row">
+              <div class="col-xs-9">
+                <h1><%= droplet.adventure %></h1>
+                <p><%= droplet.description %><p>
+              </div>
+              <div class="col-xs-3">
+                <%= button_to 'I DID IT!', checkoff_path, params: { :droplet_id => droplet.id } , :method=>:post, class: "btn btn-success"%>
+              </div>
+            </div>
+          </div>
+        </div>
+
+  <% end %>
+
+  <div class="container">
+    <%= form_tag "/droplets", method: "post", class: "form-inline" do %>
+      <div class="form-group">
+        <%= label_tag(:adventure, "Title:") %>
+        <%= text_field_tag :adventure, "", class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= label_tag(:image_url, "Image URL:") %>
+        <%= text_field_tag :image_url, "", class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= label_tag(:description, "Description:") %>
+        <%= text_field_tag :description, "",  class: "form-control" %>
+        <%= submit_tag "Create", class: "btn btn-success" %>
+      </div>
+    <% end %>
+  </div>
+
+</div>
