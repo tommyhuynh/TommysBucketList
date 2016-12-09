@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @droplets = Droplet.all.where(:complete => false)
+    @droplets = Droplet.all.where(:complete => false).order("id DESC")
   end
 
   def checkoff
